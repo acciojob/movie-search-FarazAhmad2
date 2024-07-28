@@ -6,7 +6,8 @@ const App = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     setError(null);
     setData(null);
     fetch(`https://www.omdbapi.com/?s=${searchInp}&apikey=99eb9fd1`)
@@ -26,12 +27,14 @@ const App = () => {
   return (
     <div>
       <p>Search Movie</p>
-      <input
-        type="text"
-        value={searchInp}
-        onChange={(e) => setSearchInp(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
+      <form onSubmit={handleSearch}>
+        <input
+          type="text"
+          value={searchInp}
+          onChange={(e) => setSearchInp(e.target.value)}
+        />
+        <button>Search</button>
+      </form>
       {error && <h3 className="error">{error}</h3>}
       <ul>
         {data &&
